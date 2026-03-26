@@ -1,108 +1,41 @@
-# Laboratorio 5 – Mini Blog (DummyJSON API)
+# Proyecto #1 – Mini Blog (Base)
 
 ## Descripción
 
-Este laboratorio consiste en desarrollar una **Mini Blog Web Application** utilizando **HTML, CSS y JavaScript puro**, consumiendo la API pública **DummyJSON – Posts**.
+Este proyecto consiste en el desarrollo de una aplicación web tipo **Blog**, utilizando **HTML, CSS y JavaScript puro**, consumiendo la API de **DummyJSON**.
+
+Actualmente, el proyecto se encuentra en una fase inicial basada en el laboratorio previo, y será extendido para cumplir con todos los requerimientos del proyecto.
 
 ---
 
-# Github Pages:
+# Estado actual del proyecto
 
+Actualmente la aplicación ya cuenta con las siguientes funcionalidades:
 
-```
-https://josekinguvg.github.io/lab5web/HTML/
-```
+### Funcionalidades implementadas
 
+* ✔ Listado de publicaciones desde la API (GET)
+* ✔ Búsqueda de publicaciones mediante query params
+* ✔ Creación de publicaciones (POST)
+* ✔ Render dinámico de datos en el DOM
+* ✔ Manejo básico de UI States:
 
----
+  * loading
+  * success
+  * empty
+  * error
+* ✔ Navegación entre secciones:
 
-# Demo / Video Explicativo
-
-Video demostración del funcionamiento de la aplicación:
-
-```
-[PEGAR AQUÍ EL ENLACE DEL VIDEO]
-```
-
----
-
-# Capturas de Pantalla
-
-## Home – Lista de Posts
-
-![Home Screenshot](./screenshots/home.png)
-
-## Búsqueda de Posts
-
-![Search Screenshot](./screenshots/search.png)
-
-## Crear Post
-
-![Create Post Screenshot](./screenshots/create-post.png)
+  * Home
+  * Crear Post
+* ✔ Visualización de posts en formato tipo **card**
+* ✔ Simulación de posts creados por el usuario (en memoria)
 
 ---
 
-# Guía de Instalación
+# Estructura actual del proyecto
 
-### 1. Clonar el repositorio
-
-```
-git clone [URL_DEL_REPOSITORIO]
-```
-
-### 2. Abrir el proyecto
-
-Abrir la carpeta del proyecto en un editor de código como:
-
-* Visual Studio Code
-
-### 3. Ejecutar la aplicación
-
-Abrir el archivo:
-
-```
-html/index.html
-```
-
-en el navegador.
-
-También puede utilizarse la extensión **Live Server** en VS Code para ejecutar el proyecto localmente.
-
----
-
-# Endpoints utilizados
-
-La aplicación consume la API pública:
-
-```
-https://dummyjson.com/posts
-```
-
-### Obtener posts
-
-```
-GET /posts
-```
-
-### Buscar posts
-
-```
-GET /posts/search?q={texto}
-```
-
-### Crear post
-
-```
-POST /posts/add
-```
-
----
-
-# Arquitectura del Proyecto
-
-El proyecto está organizado de la siguiente manera:
-
-```
+```id="ux2p2r"
 lab5/
 
 html/
@@ -115,57 +48,117 @@ js/
   main.js
 ```
 
-### html/
+---
 
-Contiene la estructura principal de la aplicación.
+# Secciones actuales (HTML)
 
-### css/
+La aplicación funciona como una SPA (Single Page Application) utilizando secciones:
 
-Contiene los estilos de la interfaz de usuario.
-
-### js/
-
-Contiene la lógica de la aplicación:
-
-* consumo de API
-* manipulación del DOM
-* manejo de eventos
-* renderizado de posts
-* UI states
+```id="ydb3rj"
+- homeSection
+- createSection
+```
 
 ---
 
-# Funcionalidades Implementadas
+# Mejoras y funcionalidades pendientes
 
-✔ Listado de posts desde la API
-✔ Búsqueda de posts por texto
-✔ Creación de posts mediante formulario
-✔ Visualización del post creado por el usuario
-✔ Manejo de estados de interfaz:
+Para cumplir completamente con los requerimientos del proyecto, se implementarán las siguientes mejoras:
 
-* idle
-* loading
-* success
-* empty
-* error
+### Funcionalidades principales
 
-✔ Interfaz con diseño tipo **card layout**
+- 1️⃣ Vista de detalle de publicación
+- 2️⃣ Eliminar publicación (Delete)
+- 3️⃣ Validaciones en formulario (JavaScript)
+- 4️⃣ Paginación de publicaciones
+- 5️⃣ Filtros adicionales (mínimo 3 criterios)
+- 6️⃣ Mejora visual de UI States
+- 7️⃣ Vista Mis Post (Sección adicional) 
+- 8️⃣ Responsive Design
+- 9️⃣ Organización del código JS 
 
 ---
 
-# Tecnologías Utilizadas
+### Navegación y nuevas secciones
+
+Se agregarán nuevas secciones dentro del mismo `index.html`:
+
+```id="t7f3t1"
+- detailSection
+- myPostsSection
+```
+
+---
+
+### Sección adicional
+
+Se implementará una sección adicional:
+
+✔ **Mis Posts**
+
+Permitirá:
+
+* visualizar publicaciones creadas por el usuario
+* eliminar publicaciones
+* (opcional) editar publicaciones
+
+---
+
+# Arquitectura futura (JavaScript)
+
+Para mejorar la organización del código, se modularizará la lógica en múltiples archivos:
+
+```id="0ff9yo"
+js/
+
+main.js        → inicialización y eventos globales
+api.js         → llamadas a la API (GET, POST, etc.)
+posts.js       → renderizado de posts
+ui.js          → manejo de estados (UI States)
+navigation.js  → control de secciones
+```
+
+---
+
+# Mejoras en UI / UX
+
+Se planea mejorar la experiencia del usuario mediante:
+
+* Mejor diseño de cards
+* Feedback visual en acciones (crear, error, carga)
+* Animaciones simples
+* Organización visual más clara
+
+---
+
+# Responsive Design
+
+Se implementará diseño responsive para:
+
+* dispositivos móviles
+* tablets
+* pantallas de escritorio
+
+Incluyendo:
+
+* layout adaptable
+* cards responsivas
+* formulario ajustable
+
+---
+
+# Tecnologías utilizadas
 
 * HTML5
 * CSS3
-* JavaScript (Vanilla JS)
+* JavaScript (Vanilla)
 * Fetch API
-* DummyJSON REST API
+* DummyJSON API
 
 ---
 
-# Autor
+# Notas
 
-Nombre: José Rivera
-
-Curso: Sistemas y Tecnologías Web
-Universidad del Valle de Guatemala
+* El proyecto se está desarrollando en equipo
+* Se utilizará Git y GitHub para control de versiones
+* Se continuará iterando sobre esta base para cumplir todos los requerimientos del proyecto
