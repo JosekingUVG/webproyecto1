@@ -190,50 +190,66 @@ async function searchPosts(){
 
 
 // FUNCIONES CREAR POST
-async function createPost(event){ // Función asíncrona para crear un nuevo post
+async function createPost(event){
+  event.preventDefault();
 
-  event.preventDefault(); // Prevenir el comportamiento por defecto del formulario (recargar la página)
+  const title = titleInput.value.trim();
+  const body = bodyInput.value.trim();
+  const userId = userIdInput.value.trim();
 
-  const title = titleInput.value;
-  const body = bodyInput.value;
-  const userId = userIdInput.value;
+  // VALIDACIONES DEFENSIVAS
+  if(title === ""){
+    alert("El título es obligatorio.");
+    return;
+  }
 
-  const response = await fetch("https://dummyjson.com/posts/add",{ // Llamada a la API para crear un nuevo post
+  if(title.length < 5){
+    alert("El título debe tener al menos 5 caracteres.");
+    return;
+  }
 
-    method:"POST", // Especificar el método HTTP como POST para crear un nuevo recurso
+  if(body === ""){
+    alert("El contenido es obligatorio.");
+    return;
+  }
 
-    headers:{ // Especificar los encabezados de la solicitud, en este caso indicando que el contenido es JSON
+  if(body.length < 20){
+    alert("El contenido debe tener al menos 20 caracteres.");
+    return;
+  }
+
+  if(userId === ""){
+    alert("El User ID es obligatorio.");
+    return;
+  }
+
+  if(isNaN(userId) || Number(userId) <= 0){
+    alert("El User ID debe ser un número válido mayor a 0.");
+    return;
+  }
+
+  // Si pasa todas las validaciones, hacer el POST
+  const response = await fetch("https://dummyjson.com/posts/add",{
+    method:"POST",
+    headers:{
       "Content-Type":"application/json"
     },
-
-    body:JSON.stringify({ // Convertir el cuerpo de la solicitud a formato JSON
+    body:JSON.stringify({
       title:title,
       body:body,
       userId:Number(userId)
     })
-
   });
 
   const data = await response.json();
 
-  // NORMALIZAR EL POST
-
-  data.reactions = {
-    likes:0,
-    dislikes:0
-  };
-
+  data.reactions = { likes:0, dislikes:0 };
   data.views = 0;
   data.tags = [];
 
-  // guardarlo en los posts del usuario
-
   userPosts.unshift(data);
-
   createPostForm.reset();
-
   showHome();
-
 }
 
 // FUNCIONES ESTADOS UI
