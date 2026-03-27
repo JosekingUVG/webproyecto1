@@ -99,7 +99,7 @@ async function loadPosts(){ // Función asíncrona para cargar los posts
   }catch(error){
 
     //console.error("Error loading posts:", error); 
-    setState("success");
+    setState("error");
 
   }
 
