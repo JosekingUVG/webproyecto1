@@ -10,6 +10,12 @@ const createPostForm = document.getElementById("createPostForm");
 const titleInput = document.getElementById("titleInput");
 const bodyInput = document.getElementById("bodyInput");
 const userIdInput = document.getElementById("userIdInput");
+const filterBtn = document.getElementById("filterBtn");
+const filterUserId = document.getElementById("filterUserId");
+const filterTag = document.getElementById("filterTag");
+const filterMinLikes = document.getElementById("filterMinLikes");
+
+filterBtn.addEventListener("click", filterPosts);
 
 // ── ESTADO DE PAGINACIÓN ─────────────────────────────────────────
 let currentPage = 0;
