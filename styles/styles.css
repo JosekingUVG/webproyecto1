@@ -121,3 +121,30 @@ textarea{
   margin:20px;
   font-weight:bold;
 }
+
+/* ---------- PAGINATION ---------- */
+#pagination{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-top:20px;
+}
+
+#pagination button{
+  padding:8px 16px;
+  border:none;
+  background:#2b7cff;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+#pagination button:hover{
+  background:#1f5ed1;
+}
+
+#pagination span{
+  font-weight:bold;
+}
