@@ -78,7 +78,6 @@ export async function searchPosts() {
   }
 }
 
-
 // ── CREAR POST ────────────────────────────────────────────
 
 export async function createPost(event) {
@@ -106,7 +105,6 @@ export async function createPost(event) {
   const { showHome } = await import("./navigation.js");
   showHome();
 }
-
 
 // ── RENDERIZAR POSTS ──────────────────────────────────────
 
@@ -174,4 +172,52 @@ function renderPagination(){
   nextBtn.onclick = nextPage;
 
   paginationContainer.append(prevBtn, pageNumber, nextBtn);
+}
+
+// ── FILTRAR POSTS ─────────────────────────────────────────
+export async function filterPosts() {
+  const userId = filterUserId.value.trim();
+  const tag = filterTag.value.trim();
+  const minLikes = filterMinLikes.value.trim();
+
+  // Validar que al menos un filtro esté lleno
+  if (userId === "" && tag === "" && minLikes === "") {
+    alert("Ingresa al menos un filtro.");
+    return;
+  }
+
+  try {
+    setState("loading");
+
+    let posts = [];
+
+    // Filtro por tag (llama endpoint específico)
+    if (tag !== "") {
+      posts = await fetchPostsByTag(tag);
+    } else {
+      // Si no hay tag, traer todos y filtrar localmente
+      posts = await fetchPosts(100, 0);
+    }
+
+    // Filtro por userId (local)
+    if (userId !== "") {
+      posts = posts.filter(p => p.userId === Number(userId));
+    }
+
+    // Filtro por likes mínimos (local)
+    if (minLikes !== "") {
+      posts = posts.filter(p => p.reactions.likes >= Number(minLikes));
+    }
+
+    if (posts.length === 0) {
+      setState("empty");
+      return;
+    }
+
+    renderPosts(posts);
+    setState("success");
+
+  } catch {
+    setState("error");
+  }
 }
