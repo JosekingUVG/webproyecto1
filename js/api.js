@@ -2,8 +2,8 @@
 
 const API_URL = "https://dummyjson.com/posts";
 
-export async function fetchPosts(limit = 5) {
-  const response = await fetch(`${API_URL}?limit=${limit}`);
+export async function fetchPosts(limit = 5, skip = 0) {
+  const response = await fetch(`${API_URL}?limit=${limit}&skip=${skip}`);
   const data = await response.json();
   return data.posts;
 }

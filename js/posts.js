@@ -11,6 +11,9 @@ const titleInput = document.getElementById("titleInput");
 const bodyInput = document.getElementById("bodyInput");
 const userIdInput = document.getElementById("userIdInput");
 
+// ── ESTADO DE PAGINACIÓN ─────────────────────────────────────────
+let currentPage = 0;
+const limit = 5;
 
 // ── CARGAR POSTS ──────────────────────────────────────────
 
@@ -27,7 +30,9 @@ export async function loadPosts() {
     }
 
     renderPosts(allPosts);
+    renderPagination();
     setState("success");
+    
   } catch {
     setState("error");
   }
@@ -121,4 +126,40 @@ function renderPosts(posts) {
     postCard.append(title, body, user, views, likes, dislikes);
     postsContainer.appendChild(postCard);
   });
+}
+
+// ── RENDERIZAR PAGINACIÓN ─────────────────────────────────
+function nextPage(){
+  currentPage++;
+  loadPosts();
+}
+
+function prevPage(){
+  if(currentPage > 0){
+    currentPage--;
+    loadPosts();
+  }
+}
+
+function renderPagination(){
+
+  const paginationContainer = document.getElementById("pagination");
+
+  paginationContainer.innerHTML = "";
+
+  // botón prev
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "←";
+  prevBtn.onclick = prevPage;
+
+  // número de página
+  const pageNumber = document.createElement("span");
+  pageNumber.textContent = `Page ${currentPage + 1}`;
+
+  // botón next
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "→";
+  nextBtn.onclick = nextPage;
+
+  paginationContainer.append(prevBtn, pageNumber, nextBtn);
 }
