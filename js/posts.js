@@ -21,8 +21,15 @@ export async function loadPosts() {
   try {
     setState("loading");
 
-    const apiPosts = await fetchPosts(5);
-    const allPosts = [...store.userPosts, ...apiPosts];
+    const apiPosts = await fetchPosts(limit, currentPage * limit);
+
+    let allPosts = [];
+
+    if(currentPage === 0){
+      allPosts = [...store.userPosts, ...apiPosts];
+    }else{
+      allPosts = apiPosts;
+    }
 
     if (allPosts.length === 0) {
       setState("empty");
@@ -31,13 +38,12 @@ export async function loadPosts() {
 
     renderPosts(allPosts);
     renderPagination();
+
     setState("success");
-    
   } catch {
     setState("error");
   }
 }
-
 
 // ── BUSCAR POSTS ──────────────────────────────────────────
 
