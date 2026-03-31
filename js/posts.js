@@ -1,6 +1,6 @@
 // posts.js — Lógica de negocio y renderizado de posts
 
-import { fetchPosts, fetchPostsByQuery, postNewPost } from "./api.js";
+import { fetchPosts, fetchPostsByQuery, fetchPostsByTag, postNewPost } from "./api.js";
 import { setState } from "./ui.js";
 import store from "./store.js";
 
