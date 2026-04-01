@@ -2,7 +2,7 @@
 
 import { fetchPosts, fetchPostsByQuery, fetchPostsByTag, fetchPostById, postNewPost } from "./api.js";
 import { setState } from "./ui.js";
-import { showDetail, showHome } from "./navigation.js";
+import { showDetail, showHome, showMyPosts } from "./navigation.js";
 import store from "./store.js";
 
 const postsContainer = document.getElementById("postsContainer");
@@ -183,6 +183,42 @@ function renderPostDetail(post) {
   detailTags.textContent = (post.tags && post.tags.length > 0) ? post.tags.join(", ") : "Sin tags";
   detailRaw.textContent = JSON.stringify(post, null, 2);
 }
+
+// - RENDERIZAR MIS POSTS -
+export function renderMyPosts() {
+  
+
+  const container = document.getElementById("myPostsContainer");
+
+  container.innerHTML = "";
+
+  if(store.userPosts.length === 0){
+    container.textContent = "No posts created yet.";
+    return;
+  }
+
+  store.userPosts.forEach(post => {
+
+    const postCard = document.createElement("div");
+    postCard.classList.add("post-card");
+
+    const title = document.createElement("h3");
+    title.textContent = post.title;
+
+    const body = document.createElement("p");
+    body.textContent = post.body;
+
+    const likes = document.createElement("p");
+    likes.textContent = "Likes: " + post.reactions.likes;
+
+    postCard.append(title, body, likes);
+
+    container.appendChild(postCard);
+
+  });
+
+}
+
 
 // ── RENDERIZAR PAGINACIÓN ─────────────────────────────────
 function nextPage(){

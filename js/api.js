@@ -41,3 +41,4 @@ export async function postNewPost({ title, body, userId }) {
 
   return data;
 }
+
