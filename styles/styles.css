@@ -172,3 +172,11 @@ textarea{
   padding:15px;
   overflow:auto;
 }
+
+/* ---------- MY POSTS ---------- */
+#myPostsContainer{
+  width:100%;
+  max-width:700px;
+  margin-top:20px;
+}
+
