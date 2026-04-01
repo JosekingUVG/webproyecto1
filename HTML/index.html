@@ -127,7 +127,28 @@
 
   </section>
 
+  <!-- SECTION DETAIL -->
 
+  <section id="detailSection" class="hidden">
+    <button id="backToHomeBtn">← Volver</button>
+
+    <h2>Detalle del Post</h2>
+
+    <div class="post-detail">
+      <p><strong>ID:</strong> <span id="detailId"></span></p>
+      <p><strong>User ID:</strong> <span id="detailUserId"></span></p>
+      <p><strong>Title:</strong> <span id="detailTitleText"></span></p>
+      <p><strong>Body:</strong></p>
+      <p id="detailBody"></p>
+      <p><strong>Views:</strong> <span id="detailViews"></span></p>
+      <p><strong>Likes:</strong> <span id="detailLikes"></span></p>
+      <p><strong>Dislikes:</strong> <span id="detailDislikes"></span></p>
+      <p><strong>Tags:</strong> <span id="detailTags"></span></p>
+
+      <h3>Raw API data</h3>
+      <pre id="detailRaw"></pre>
+    </div>
+  </section>
 
   <!-- JS -->
  <script type="module" src="../js/main.js"></script>
