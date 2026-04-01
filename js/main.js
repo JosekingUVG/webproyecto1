@@ -15,7 +15,10 @@ const retryBtn = document.getElementById("retryBtn");
 
 // ── REGISTRO DE EVENTOS ───────────────────────────────────
 
-homeBtn.addEventListener("click", showHome);
+homeBtn.addEventListener("click", () => {
+  showHome();
+  loadPosts();
+});
 createBtn.addEventListener("click", showCreate);
 searchBtn.addEventListener("click", searchPosts);
 createPostForm.addEventListener("submit", createPost);

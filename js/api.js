@@ -20,6 +20,12 @@ export async function fetchPostsByTag(tag) {
   return data.posts;
 }
 
+export async function fetchPostById(id) {
+  const response = await fetch(`${API_URL}/${id}`);
+  const data = await response.json();
+  return data;
+}
+
 export async function postNewPost({ title, body, userId }) {
   const response = await fetch(`${API_URL}/add`, {
     method: "POST",

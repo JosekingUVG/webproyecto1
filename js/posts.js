@@ -1,7 +1,8 @@
 // posts.js — Lógica de negocio y renderizado de posts
 
-import { fetchPosts, fetchPostsByQuery, fetchPostsByTag, postNewPost } from "./api.js";
+import { fetchPosts, fetchPostsByQuery, fetchPostsByTag, fetchPostById, postNewPost } from "./api.js";
 import { setState } from "./ui.js";
+import { showDetail, showHome } from "./navigation.js";
 import store from "./store.js";
 
 const postsContainer = document.getElementById("postsContainer");
@@ -14,8 +15,22 @@ const filterBtn = document.getElementById("filterBtn");
 const filterUserId = document.getElementById("filterUserId");
 const filterTag = document.getElementById("filterTag");
 const filterMinLikes = document.getElementById("filterMinLikes");
+const backToHomeBtn = document.getElementById("backToHomeBtn");
+const detailId = document.getElementById("detailId");
+const detailUserId = document.getElementById("detailUserId");
+const detailTitleText = document.getElementById("detailTitleText");
+const detailBody = document.getElementById("detailBody");
+const detailViews = document.getElementById("detailViews");
+const detailLikes = document.getElementById("detailLikes");
+const detailDislikes = document.getElementById("detailDislikes");
+const detailTags = document.getElementById("detailTags");
+const detailRaw = document.getElementById("detailRaw");
 
 filterBtn.addEventListener("click", filterPosts);
+backToHomeBtn.addEventListener("click", () => {
+  showHome();
+  loadPosts();
+});
 
 // ── ESTADO DE PAGINACIÓN ─────────────────────────────────────────
 let currentPage = 0;
@@ -102,8 +117,8 @@ export async function createPost(event) {
   createPostForm.reset();
 
   // Regresar al home después de crear
-  const { showHome } = await import("./navigation.js");
   showHome();
+  loadPosts();
 }
 
 // ── RENDERIZAR POSTS ──────────────────────────────────────
@@ -118,24 +133,55 @@ function renderPosts(posts) {
     const title = document.createElement("h3");
     title.textContent = post.title;
 
-    const user = document.createElement("p");
-    user.textContent = "User ID: " + post.userId;
-
-    const views = document.createElement("p");
-    views.textContent = "Views: " + post.views;
-
     const body = document.createElement("p");
     body.textContent = post.body;
 
-    const likes = document.createElement("p");
-    likes.textContent = "Likes: " + post.reactions.likes;
+    const meta = document.createElement("div");
+    meta.classList.add("post-meta");
 
-    const dislikes = document.createElement("p");
-    dislikes.textContent = "Dislikes: " + post.reactions.dislikes;
+    const views = document.createElement("span");
+    views.textContent = `Views: ${post.views}`;
 
-    postCard.append(title, body, user, views, likes, dislikes);
+    const likes = document.createElement("span");
+    likes.textContent = `Likes: ${post.reactions?.likes ?? 0}`;
+
+    const dislikes = document.createElement("span");
+    dislikes.textContent = `Dislikes: ${post.reactions?.dislikes ?? 0}`;
+
+    meta.append(views, likes, dislikes);
+
+    const detailButton = document.createElement("button");
+    detailButton.textContent = "Ver detalle";
+    detailButton.addEventListener("click", () => openPostDetail(post));
+
+    postCard.append(title, body, meta, detailButton);
     postsContainer.appendChild(postCard);
   });
+}
+
+async function openPostDetail(post) {
+  try {
+    const detailPost = post.tags && post.reactions && typeof post.views !== "undefined"
+      ? post
+      : await fetchPostById(post.id);
+
+    renderPostDetail(detailPost);
+    showDetail();
+  } catch {
+    alert("No se pudo cargar el detalle del post.");
+  }
+}
+
+function renderPostDetail(post) {
+  detailId.textContent = post.id ?? "N/A";
+  detailUserId.textContent = post.userId ?? "N/A";
+  detailTitleText.textContent = post.title ?? "";
+  detailBody.textContent = post.body ?? "";
+  detailViews.textContent = post.views ?? 0;
+  detailLikes.textContent = post.reactions?.likes ?? 0;
+  detailDislikes.textContent = post.reactions?.dislikes ?? 0;
+  detailTags.textContent = (post.tags && post.tags.length > 0) ? post.tags.join(", ") : "Sin tags";
+  detailRaw.textContent = JSON.stringify(post, null, 2);
 }
 
 // ── RENDERIZAR PAGINACIÓN ─────────────────────────────────
