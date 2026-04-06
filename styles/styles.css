@@ -228,3 +228,63 @@ textarea{
   margin-top:20px;
 }
 
+
+/* ---------- RESPONSIVE TABLET ---------- */
+@media (max-width: 768px) {
+
+  header{
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .search-container{
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .filters-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  #postsContainer{
+    width: 95%;
+  }
+
+  #createPostForm{
+    width: 90%;
+  }
+
+}
+
+
+/* ---------- RESPONSIVE MOBILE ---------- */
+@media (max-width: 480px) {
+
+  header h1{
+    font-size: 20px;
+  }
+
+  header button{
+    width: 100%;
+  }
+
+  .post-card{
+    padding: 15px;
+  }
+
+  .post-meta{
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  input, textarea{
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+}
