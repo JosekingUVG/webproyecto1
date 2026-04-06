@@ -81,11 +81,30 @@ textarea{
   padding:20px;
   margin:15px 0;
   box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  border-left:4px solid #2b7cff;
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+
+.post-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.12);
 }
 
 .post-card h3{
   margin-top:0;
+  color:#1a1a2e;
+  font-size:18px;
 }
+
+.post-card p{
+  color:#555;
+  line-height:1.6;
+}
+
+.post-card button{
+  margin-top:10px;
+}
+
 
 /* ---------- POST META INFO ---------- */
 
