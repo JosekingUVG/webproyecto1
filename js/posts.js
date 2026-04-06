@@ -211,7 +211,14 @@ export function renderMyPosts() {
     const likes = document.createElement("p");
     likes.textContent = "Likes: " + post.reactions.likes;
 
-    postCard.append(title, body, likes);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Eliminar";
+    deleteBtn.addEventListener("click", () => {
+      store.userPosts = store.userPosts.filter(p => p.id !== post.id);
+      renderMyPosts();
+    });
+
+    postCard.append(title, body, likes, deleteBtn);
 
     container.appendChild(postCard);
 
