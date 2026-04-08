@@ -2,7 +2,7 @@
 
 ## Video explicativo
 
-> [Espacio reservado para el video explicativo de la aplicación]
+> https://youtu.be/QZCHnYkEBoA
 
 ---
 
